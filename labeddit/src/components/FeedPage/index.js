@@ -1,7 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+//import { useProtectedPage } from "./../../useProtectedPage";
 
 function FeedPage() {
+  //useProtectedPage();
   let history = useHistory();
 
   const goToPost = () => {
