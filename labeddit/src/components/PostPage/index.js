@@ -1,6 +1,8 @@
 import React from "react";
+//import { useProtectedPage } from "./../../useProtectedPage";
 
 function PostPage() {
+  //useProtectedPage();
   return (
     <div>
       <h3>Post</h3>
