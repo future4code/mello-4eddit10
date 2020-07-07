@@ -21,7 +21,7 @@ function FeedPage() {
     getPosts();
   }, []);
 
-  const mySubmitCommentHandler = async (event) => {
+  const handleSubmitPost = async (event) => {
     event.preventDefault();
 
     const axiosConfig = {
@@ -38,6 +38,8 @@ function FeedPage() {
       console.log(error);
       alert("Não foi possível criar o post.");
     }
+
+    getPosts();
   };
 
   const handleInputChange = (event) => {
@@ -89,6 +91,8 @@ function FeedPage() {
       console.log(error);
       alert("Falha ao descurtir post");
     }
+
+    getPosts();
   };
 
   const likePost = async (id) => {
@@ -114,12 +118,14 @@ function FeedPage() {
       console.log(error);
       alert("Falha ao curtir post");
     }
+
+    getPosts();
   };
 
   return (
     <div>
       <h3>Feed de posts</h3>
-      <form onSubmit={mySubmitCommentHandler}>
+      <form onSubmit={handleSubmitPost}>
         <label htmlFor="title">Título</label>
         <input
           id="title"
