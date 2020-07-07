@@ -1,8 +1,46 @@
 import React from "react";
-//import { useProtectedPage } from "./../../useProtectedPage";
+import { useProtectedPage } from "./../../useProtectedPage";
+import { useState } from "react";
+import axios from "axios";
+
 
 function PostPage() {
-  //useProtectedPage();
+  useProtectedPage();
+  const[comment,setComment] = useState ({
+    text:""
+  });
+
+  const onChangeInput = (event) => {
+    const newValue = event.target.value;
+    const commentName = event.target.name;
+    setComment({[commentName]:newValue});
+  };
+
+
+  const onSubmitComment= async (event)=> {
+    event.preventDefault();
+    console.log(comment);
+
+    const body = {
+      text: comment.text,
+    }
+
+    
+    const postComments = 
+       await axios.post(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${comment.id}/comment`, body);
+    
+    setComment();
+   
+    
+  };
+
+  const renderization = () =>
+  comment.map((comment) => (
+    <li>{comment.text}</li>
+  ));
+ 
+  
+ 
   return (
     <div>
       <h3>Post</h3>
@@ -14,9 +52,9 @@ function PostPage() {
 
       <hr />
 
-      <form>
+      <form onSubmit = {onSubmitComment}>
         <label htmlFor="writeComment">Escreva seu comentário</label>
-        <input id="writeComment" type="text" required />
+        <input onChange = {onChangeInput} id="writeComment" type="text" name = "comment" required />
         <button>Postar</button>
       </form>
 
@@ -25,6 +63,9 @@ function PostPage() {
       <div>
         <p>Nome do usuário</p>
         <p>Texto do comentário</p>
+        <ul>
+         {renderization}
+        </ul>
       </div>
     </div>
   );
