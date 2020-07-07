@@ -62,6 +62,8 @@ function PostPage() {
       console.log(error);
       alert("Não foi possível postar comentário.");
     }
+
+    getPostDetail();
   };
 
   const onChangeInput = (event) => {
@@ -97,6 +99,8 @@ function PostPage() {
       console.log(error);
       alert("Falha ao descurtir comentário");
     }
+
+    getPostDetail();
   };
 
   const likeComment = async (commentId) => {
@@ -121,6 +125,8 @@ function PostPage() {
     } catch (error) {
       console.log(error);
       alert("Falha ao curtir comentário");
+
+      getPostDetail();
     }
   };
 
