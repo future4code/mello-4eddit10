@@ -7,7 +7,6 @@ import SignUpPage from "./SignUpPage/index";
 import FeedPage from "./FeedPage/index";
 import PostPage from "./PostPage/index";
 
-
 const Router = () => {
   return (
     <BrowserRouter>
