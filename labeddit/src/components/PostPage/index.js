@@ -1,70 +1,113 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
-import { useState } from "react";
+import { useHistory, useParams } from "react-router";
 import axios from "axios";
+import useForm from "../../hooks/useForm"
 
+const baseUrl = 
+  "https://us-central1-labenu-apis.cloudfunctions.net/labEddit";
 
 function PostPage() {
   useProtectedPage();
-  const[comment,setComment] = useState ({
-    text:""
-  });
 
-  const onChangeInput = (event) => {
-    const newValue = event.target.value;
-    const commentName = event.target.name;
-    setComment({[commentName]:newValue});
-  };
+  const { form, onChange } = useForm ({ text:""});
+  const { postId } = useParams();
 
+  const history = useHistory();
+
+  const token = localStorage.getItem("token")
+  
+  const [post, setPost] = useState({})
+
+  useEffect(() => {
+    getPostDetail();
+  }, []);
+
+  const getPostDetail = async() => {
+    const axiosConfig = {
+      headers: {
+        Authorization: token,
+      }
+    };
+
+    try {
+      const response = await axios.get(`${baseUrl}/posts/${postId}`, axiosConfig);
+      console.log(response.data.post)
+      setPost(response.data.post)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const onSubmitComment= async (event)=> {
     event.preventDefault();
-    console.log(comment);
+
+    const axiosConfig = {
+      headers: {
+        Authorization: token,
+      }
+    };
 
     const body = {
-      text: comment.text,
+      text: form.text,
     }
+    
+    try {
+      const response = await axios.post(`${baseUrl}/posts/${postId}/comment`, form, body, axiosConfig);
+      console.log(response.data.success)
+      alert("Comentário enviado com sucesso!")
+    } catch(error) {
+      console.log(error)
+      alert("Não foi possível postar comentário.")
+    }
+  } 
 
-    
-    const postComments = 
-       await axios.post(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${comment.id}/comment`, body);
-    
-    setComment();
-   
-    
+  const onChangeInput = (event) => {
+    const { name, value } = event.target;
+
+    onChange (name, value)
   };
 
-  const renderization = () =>
-  comment.map((comment) => (
-    <li>{comment.text}</li>
-  ));
- 
-  
- 
+  const backToFeed = () => {
+    history.push("/feed");
+  };
+
   return (
     <div>
       <h3>Post</h3>
+      <button onClick={backToFeed}>Voltar Para o Feed</button>
       <div>
-        <p>Nome do usuário</p>
-        <p>Texto do post</p>
-        <p>0 comentários</p>
+        <p>{post.username}</p>
+        <p>{post.text}</p>
+        <p>{post.commentsCount} comentários</p>
       </div>
 
       <hr />
 
       <form onSubmit = {onSubmitComment}>
-        <label htmlFor="writeComment">Escreva seu comentário</label>
-        <input onChange = {onChangeInput} id="writeComment" type="text" name = "comment" required />
-        <button>Postar</button>
+        <label htmlFor="text">Escreva seu comentário</label>
+        <input 
+        onChange = {onChangeInput} 
+        id="text" 
+        type="text" 
+        name="text"
+        value={form.text}
+        required />
+        <button type="submit">Postar</button>
       </form>
 
       <hr />
 
       <div>
-        <p>Nome do usuário</p>
-        <p>Texto do comentário</p>
         <ul>
-         {renderization}
+          {post.comments && post.comments.map(data => {
+            return (
+              <li>
+                <p>{data.username}</p>
+                <p>{data.text}</p>
+              </li>
+            )
+          })}
         </ul>
       </div>
     </div>

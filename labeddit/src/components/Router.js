@@ -27,7 +27,7 @@ const Router = () => {
             <FeedPage />
           </DocumentTitle>
         </Route>
-        <Route exact path="/post">
+        <Route exact path="/post/:postId">
           <DocumentTitle title="LabEddit - Post">
             <PostPage />
           </DocumentTitle>
