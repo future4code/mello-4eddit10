@@ -67,8 +67,8 @@ function FeedPage() {
     }
   }
 
-  const goToPost = () => {
-    history.push("/post");
+  const goToPost = (id) => {
+    history.push(`/post/${id}`);
   };
 
   return (
@@ -98,7 +98,7 @@ function FeedPage() {
                 <p>{post.username}</p>
                 <p>{post.text}</p>
                 <p>{post.commentsCount} comentários</p>
-                <button onClick={goToPost}>Detalhes post</button>
+                <button onClick={() => goToPost(post.id)}>Detalhes post</button>
               </div>
             )
           })}
