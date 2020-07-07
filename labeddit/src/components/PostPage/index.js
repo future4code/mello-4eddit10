@@ -1,5 +1,5 @@
 import React from "react";
-import { useProtectedPage } from "./../../useProtectedPage";
+import { useProtectedPage } from "../../hooks/useProtectedPage";
 import { useState } from "react";
 import axios from "axios";
 
