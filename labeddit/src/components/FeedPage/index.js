@@ -16,6 +16,11 @@ function FeedPage() {
 
   const { form, onChange } = useForm({ text: "", title: "" });
   const [posts, setPosts] = useState([]);
+    
+  const handleLogout = () => {
+    localStorage.clear();
+    history.push("/");
+  };
 
   useEffect(() => {
     getPosts();
@@ -125,6 +130,15 @@ function FeedPage() {
   return (
     <div>
       <h3>Feed de posts</h3>
+      <button onClick={handleLogout}>Fazer Logout</button>
+
+     {/*  Campo de busca  */}
+      <form>
+        <label for="busca">Buscar</label>
+        <input type="search" id="busca" name="q"/>
+        <button type="submit">OK</button>
+      </form>
+
       <form onSubmit={handleSubmitPost}>
         <label htmlFor="title">Título</label>
         <input
@@ -158,6 +172,7 @@ function FeedPage() {
             return (
               <div>
                 <p>{post.username}</p>
+                <p>{post.title}</p>
                 <p>{post.text}</p>
                 <p>{post.commentsCount} comentários</p>
                 <button onClick={() => goToPost(post.id)}>Detalhes post</button>
