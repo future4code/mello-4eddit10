@@ -18,9 +18,14 @@ function PostPage() {
 
   const [post, setPost] = useState({});
 
+  const handleLogout = () => {
+    localStorage.clear();
+    history.push("/");
+  };
+
   useEffect(() => {
     getPostDetail();
-  }, []);
+  }, /* [] */);
 
   const getPostDetail = async () => {
     const axiosConfig = {
@@ -134,8 +139,10 @@ function PostPage() {
     <div>
       <h3>Post</h3>
       <button onClick={backToFeed}>Voltar Para o Feed</button>
+      <button onClick={handleLogout}>Fazer Logout</button>
       <div>
         <p>{post.username}</p>
+        <p>{post.title}</p>
         <p>{post.text}</p>
         <p>{post.commentsCount} comentários</p>
       </div>
@@ -166,7 +173,6 @@ function PostPage() {
                   <p>{data.username}</p>
                   <p>{data.text}</p>
                   <button onClick={() => likeComment(data.id)}>+</button>
-                  {data.userVoteDirection}
                   {data.votesCount}
                   <button onClick={() => dislikeComment(data.id)}>-</button>
                 </li>
