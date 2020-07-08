@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import React, { useState, useEffect, useReducer, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
 import useForm from "../../hooks/useForm";
+import Filter from "../Search";
+import { searchReducer, initialState } from "../reducers/search";
+import SearchContext from "../../contexts/SearchContext";
 
 const baseUrl = "https://us-central1-labenu-apis.cloudfunctions.net/labEddit";
 
@@ -10,10 +13,10 @@ function FeedPage() {
   useProtectedPage();
   let history = useHistory();
 
-  const { postId } = useParams();
-
   const token = localStorage.getItem("token");
+  const searchContext = useContext(SearchContext);
 
+  const [state, dispatch] = useReducer(searchReducer, initialState);
   const { form, onChange } = useForm({ text: "", title: "" });
   const [posts, setPosts] = useState([]);
     
@@ -63,7 +66,6 @@ function FeedPage() {
     try {
       const response = await axios.get(`${baseUrl}/posts`, axiosConfig);
       setPosts(response.data.posts);
-      console.log(response.data.posts);
     } catch (error) {
       console.log(error);
     }
@@ -127,17 +129,25 @@ function FeedPage() {
     getPosts();
   };
 
+  const filteredPosts = () => {
+    if(searchContext.search.name !== null) {
+      posts.filter((post) => {
+      return post.username.toLowerCase().includes(searchContext.search.username.toLowerCase());
+      })
+    }
+  }
+  
   return (
     <div>
       <h3>Feed de posts</h3>
       <button onClick={handleLogout}>Fazer Logout</button>
 
      {/*  Campo de busca  */}
-      <form>
-        <label for="busca">Buscar</label>
-        <input type="search" id="busca" name="q"/>
-        <button type="submit">OK</button>
-      </form>
+      <SearchContext.Provider
+        value={{ search: state.search, dispatch: dispatch }}
+      >
+        <Filter/>
+      </SearchContext.Provider>
 
       <form onSubmit={handleSubmitPost}>
         <label htmlFor="title">Título</label>
