@@ -16,10 +16,9 @@ function FeedPage() {
   const token = localStorage.getItem("token");
   const searchContext = useContext(SearchContext);
 
-  const [state, dispatch] = useReducer(searchReducer, initialState);
   const { form, onChange } = useForm({ text: "", title: "" });
   const [posts, setPosts] = useState([]);
-    
+
   const handleLogout = () => {
     localStorage.clear();
     history.push("/");
@@ -129,25 +128,25 @@ function FeedPage() {
     getPosts();
   };
 
-  const filteredPosts = () => {
-    if(searchContext.search.name !== null) {
-      posts.filter((post) => {
-      return post.username.toLowerCase().includes(searchContext.search.username.toLowerCase());
-      })
-    }
+  let filteredPosts = [...posts];
+
+  if (searchContext.search.name !== null) {
+    console.log(searchContext.search.name);
+    filteredPosts = filteredPosts.filter((post) => {
+      debugger;
+      console.log(post.title);
+      return post.title && post.title.includes(searchContext.search.name);
+    });
   }
-  
+
   return (
     <div>
       <h3>Feed de posts</h3>
       <button onClick={handleLogout}>Fazer Logout</button>
 
-     {/*  Campo de busca  */}
-      <SearchContext.Provider
-        value={{ search: state.search, dispatch: dispatch }}
-      >
-        <Filter/>
-      </SearchContext.Provider>
+      {/*  Campo de busca  */}
+
+      <Filter />
 
       <form onSubmit={handleSubmitPost}>
         <label htmlFor="title">Título</label>
@@ -178,7 +177,7 @@ function FeedPage() {
       <div>
         {posts.length === 0 && <div>Carregando...</div>}
         {posts &&
-          posts.map((post) => {
+          filteredPosts.map((post) => {
             return (
               <div>
                 <p>{post.username}</p>
