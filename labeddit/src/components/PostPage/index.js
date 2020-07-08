@@ -25,7 +25,7 @@ function PostPage() {
 
   useEffect(() => {
     getPostDetail();
-  }, /* [] */);
+  }, []);
 
   const getPostDetail = async () => {
     const axiosConfig = {
@@ -39,7 +39,6 @@ function PostPage() {
         `${baseUrl}/posts/${postId}`,
         axiosConfig
       );
-      console.log(response.data.post);
       setPost(response.data.post);
     } catch (error) {
       console.log(error);
