@@ -147,7 +147,6 @@ function PostPage() {
       </div>
 
         {/* Buttons de compartilhar */}
-        
       <div>
         <span> Compartilhar: </span>
         {/* <!-- Sharingbutton Facebook --> */}

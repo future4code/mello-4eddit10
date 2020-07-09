@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { LoginSignUpContainer, LoginBox, LoginForm } from "./../../styles";
+import { LoginSignUpContainer, ImgBox, Input, Label, Tittle, ButtonSignIn, ButtonSignUp, LoginBox, LoginForm } from "./../../styles";
+
+import Mascote from "../../imgs/mascote.png";
 
 const baseUrl = "https://us-central1-labenu-apis.cloudfunctions.net/labEddit";
 
@@ -33,28 +35,31 @@ function LoginPage() {
 
   return (
     <LoginSignUpContainer>
+      <ImgBox>
+        <img width="200" src={Mascote} alt="Logo Menor"/>
+      </ImgBox>
       <LoginBox>
-        <h2>Login</h2>
+        <Tittle>Entrar no Labeddit</Tittle>
         <LoginForm>
-          <label htmlFor="email">E-mail</label>
-          <input
+          <Label htmlFor="email">E-mail</Label>
+          <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             id="email"
             type="email"
             required
           />
-          <label htmlFor="password">Senha</label>
-          <input
+          <Label htmlFor="password">Senha</Label>
+          <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             id="password"
             type="password"
             required
           />
-          <button onClick={handleLogin}>Entrar</button>
+          <ButtonSignIn onClick={handleLogin}>Entrar</ButtonSignIn>
         </LoginForm>
-        <button onClick={goToSignUpPage}>Cadastrar</button>
+        <ButtonSignUp onClick={goToSignUpPage}>Inscrever-se no Labeddit</ButtonSignUp>
       </LoginBox>
     </LoginSignUpContainer>
   );
