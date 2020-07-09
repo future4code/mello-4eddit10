@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
+import { LoginSignUpContainer, ImgBox, LoginBox2, LoginForm, Tittle, Label, Input, ButtonSignIn2 } from "./../../styles";
+import MascoteLogo from "../../imgs/mascote-logo.png";
+
 const baseUrl = "https://us-central1-labenu-apis.cloudfunctions.net/labEddit";
 
 function SignUpPage() {
