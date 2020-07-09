@@ -11,22 +11,12 @@ export const LoginSignUpContainer = styled.div`
 
 export const ImgBox = styled.div`
   position: absolute;
-  top: 8%;
+  top: 5%;
 `;
 
 export const LoginBox = styled.div`
   position: absolute;
-  top: 40%;
-  width: 30%;
-  height: 30%;
-
-  display: flex;
-  flex-direction: column;
-`;
-
-export const LoginBox2 = styled.div`
-  position: absolute;
-  top: 30%;
+  top: 35%;
   width: 30%;
   height: 30%;
 
@@ -46,10 +36,6 @@ export const LoginForm = styled.form`
 export const Label = styled.label`
   padding: 10px;
   margin-left: 4.5vw;
-
-  :focus {
-    color: #FF5700;
-  }
 `;
 
 export const Input = styled.input`
@@ -65,10 +51,6 @@ export const Input = styled.input`
   left: 0;
   margin-right: auto;
   margin-left: auto;
-
-  :focus{
-    border-bottom: 1px solid #FF5700;
-  }
 `;
 
 export const ButtonSignIn = styled.button`
@@ -84,36 +66,6 @@ export const ButtonSignIn = styled.button`
 
   position: absolute;
   top: 120%;
-  right: 0;
-  left: 0;
-  margin-right: auto;
-  margin-left: auto;
-
-  :hover {
-    background-color: #55ACEF;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  }
-
-  :active {
-    transform: translateY(-1px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  }
-`;
-
-export const ButtonSignIn2 = styled.button`
-  outline: none;
-  width: 10vw;
-  height: 5vh;
-  background-color: #FF5700;
-  border-radius: 5vw;
-  border: none;
-  padding: 5px;
-  cursor: pointer;
-  font-size: 16px;
-
-  position: absolute;
-  top: 155%;
   right: 0;
   left: 0;
   margin-right: auto;
