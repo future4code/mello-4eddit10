@@ -5,6 +5,17 @@ import { useProtectedPage } from "../../hooks/useProtectedPage";
 import useForm from "../../hooks/useForm";
 import Filter from "../Search";
 import SearchContext from "../../contexts/SearchContext";
+import labedditLogo from "../../imgs/mascote.png";
+import {
+  ContentContainer,
+  FeedGrid,
+  FeedHeader,
+  PostContainer,
+  HeaderImg,
+  CreatePostForm,
+  Posts,
+  DetailsBox,
+} from "../../styles";
 
 const baseUrl = "https://us-central1-labenu-apis.cloudfunctions.net/labEddit";
 
@@ -135,66 +146,83 @@ function FeedPage() {
       debugger;
       console.log(post.title);
       return (
-        (post.title && post.title.toLowerCase().includes(searchContext.search.name.toLowerCase()))
-        || (post.username && post.username.toLowerCase().includes(searchContext.search.name.toLowerCase()))
-        || (post.text && post.text.toLowerCase().includes(searchContext.search.name.toLowerCase()))
-      )
+        (post.title &&
+          post.title
+            .toLowerCase()
+            .includes(searchContext.search.name.toLowerCase())) ||
+        (post.username &&
+          post.username
+            .toLowerCase()
+            .includes(searchContext.search.name.toLowerCase())) ||
+        (post.text &&
+          post.text
+            .toLowerCase()
+            .includes(searchContext.search.name.toLowerCase()))
+      );
     });
   }
 
   return (
-    <div>
-      <h3>Feed de posts</h3>
-      <button onClick={handleLogout}>Fazer Logout</button>
+    <ContentContainer>
+      <FeedGrid>
+        <FeedHeader>
+          <HeaderImg src={labedditLogo} alt={"Logo Labeddit"} />
 
-      {/*  Campo de busca  */}
-      <Filter />
+          {/*  Campo de busca  */}
+          <Filter />
+          <button onClick={handleLogout}>Fazer Logout</button>
+        </FeedHeader>
 
-      <form onSubmit={handleSubmitPost}>
-        <label htmlFor="title">Título</label>
-        <input
-          id="title"
-          type="text"
-          name="title"
-          value={form.title}
-          minLength="3"
-          required
-          onChange={handleInputChange}
-        />
-        <label htmlFor="text">Escreva seu post</label>
-        <input
-          id="text"
-          type="text"
-          name="text"
-          value={form.text}
-          minLength="3"
-          required
-          onChange={handleInputChange}
-        />
-        <button type="submit">Postar</button>
-      </form>
-
-      <hr />
-
-      <div>
-        {filteredPosts.length === 0 && <div>Carregando...</div>}
-        {filteredPosts &&
-          filteredPosts.map((post) => {
-            return (
-              <div>
-                <p>{post.username}</p>
-                <p>{post.title}</p>
-                <p>{post.text}</p>
-                <p>{post.commentsCount} comentários</p>
-                <button onClick={() => goToPost(post.id)}>Detalhes post</button>
-                <button onClick={() => likePost(post.id)}>+</button>
-                {post.votesCount}
-                <button onClick={() => dislikePost(post.id)}>-</button>
-              </div>
-            );
-          })}
-      </div>
-    </div>
+        <PostContainer>
+          <CreatePostForm onSubmit={handleSubmitPost}>
+            <label htmlFor="title">Título</label>
+            <input
+              id="title"
+              type="text"
+              name="title"
+              value={form.title}
+              minLength="3"
+              required
+              onChange={handleInputChange}
+            />
+            <label htmlFor="text">Escreva seu post</label>
+            <input
+              id="text"
+              type="text"
+              name="text"
+              value={form.text}
+              minLength="3"
+              required
+              onChange={handleInputChange}
+            />
+            <button type="submit">Postar</button>
+          </CreatePostForm>
+          <hr />
+          <div>
+            {filteredPosts.length === 0 && <div>Carregando...</div>}
+            {filteredPosts &&
+              filteredPosts.map((post) => {
+                return (
+                  <Posts>
+                    <p>
+                      {post.title} | @{post.username}
+                    </p>
+                    <p>{post.text}</p>
+                    <DetailsBox>
+                      <span>{post.commentsCount}</span>
+                      <button onClick={() => goToPost(post.id)}>
+                        Detalhes
+                      </button>
+                      <button onClick={() => likePost(post.id)}>+</button>
+                      <button onClick={() => dislikePost(post.id)}>-</button>
+                    </DetailsBox>
+                  </Posts>
+                );
+              })}
+          </div>
+        </PostContainer>
+      </FeedGrid>
+    </ContentContainer>
   );
 }
 

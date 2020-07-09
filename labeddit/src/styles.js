@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const LoginSignUpContainer = styled.div`
   display: flex;
   justify-content: center;
-  background-color: #E6E7E8;
+  background-color: #e6e7e8;
   width: 100vw;
   height: 100vh;
   font-family: Roboto;
@@ -57,7 +57,7 @@ export const ButtonSignIn = styled.button`
   outline: none;
   width: 10vw;
   height: 5vh;
-  background-color: #FF5700;
+  background-color: #ff5700;
   border-radius: 5vw;
   border: none;
   padding: 5px;
@@ -72,7 +72,7 @@ export const ButtonSignIn = styled.button`
   margin-left: auto;
 
   :hover {
-    background-color: #55ACEF;
+    background-color: #55acef;
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
@@ -89,11 +89,77 @@ export const ButtonSignUp = styled.button`
   text-decoration: underline;
   cursor: pointer;
   font-size: 14px;
-  
+
   position: absolute;
   top: 140%;
   right: 0;
   left: 0;
   margin-right: auto;
   margin-left: auto;
+`;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: #e6e7e8;
+`;
+
+export const FeedGrid = styled.div`
+  margin-top: 32px;
+
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2vw;
+`;
+
+export const FeedHeader = styled.header`
+  display: flex;
+  flex-direction: column;
+
+  background-color: #f7f7f7;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 16px;
+
+  width: 16vw;
+  height: 36vh;
+
+  border-radius: 16px;
+  box-shadow: 16px 16px 16px #dcddde;
+`;
+
+export const PostContainer = styled.div`
+  background-color: #f7f7f7;
+  border-radius: 16px;
+  box-shadow: 16px 16px 16px #dcddde;
+
+  padding: 32px;
+
+  width: 40vw;
+`;
+
+export const HeaderImg = styled.img`
+  width: 140px;
+  height: 140px;
+`;
+
+export const CreatePostForm = styled.form`
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-evenly;
+  margin-bottom: 24px;
+`;
+
+export const Posts = styled.div`
+  border-bottom: 1px solid black;
+`;
+
+export const DetailsBox = styled.div`
+  padding-bottom: 12px;
+
+  display: flex;
+  justify-content: flex-end;
 `;
