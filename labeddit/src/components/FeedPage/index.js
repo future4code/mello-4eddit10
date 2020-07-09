@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useReducer, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
 import useForm from "../../hooks/useForm";
 import Filter from "../Search";
-import { searchReducer, initialState } from "../reducers/search";
 import SearchContext from "../../contexts/SearchContext";
 
 const baseUrl = "https://us-central1-labenu-apis.cloudfunctions.net/labEddit";
@@ -135,7 +134,11 @@ function FeedPage() {
     filteredPosts = filteredPosts.filter((post) => {
       debugger;
       console.log(post.title);
-      return post.title && post.title.includes(searchContext.search.name);
+      return (
+        (post.title && post.title.toLowerCase().includes(searchContext.search.name.toLowerCase()))
+        || (post.username && post.username.toLowerCase().includes(searchContext.search.name.toLowerCase()))
+        || (post.text && post.text.toLowerCase().includes(searchContext.search.name.toLowerCase()))
+      )
     });
   }
 
@@ -145,7 +148,6 @@ function FeedPage() {
       <button onClick={handleLogout}>Fazer Logout</button>
 
       {/*  Campo de busca  */}
-
       <Filter />
 
       <form onSubmit={handleSubmitPost}>
@@ -175,8 +177,8 @@ function FeedPage() {
       <hr />
 
       <div>
-        {posts.length === 0 && <div>Carregando...</div>}
-        {posts &&
+        {filteredPosts.length === 0 && <div>Carregando...</div>}
+        {filteredPosts &&
           filteredPosts.map((post) => {
             return (
               <div>

@@ -146,6 +146,31 @@ function PostPage() {
         <p>{post.commentsCount} comentários</p>
       </div>
 
+        {/* Buttons de compartilhar */}
+      <div>
+        <span> Compartilhar: </span>
+        {/* <!-- Sharingbutton Facebook --> */}
+        <a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsharingbuttons.io" rel="noopener" aria-label="Facebook">
+          <span class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--medium"/>
+            <span aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--normal"/>
+            <img width="25" src="https://image.flaticon.com/icons/svg/174/174848.svg" alt="facebook"/>
+        </a>
+
+        {/* <!-- Sharingbutton Twitter --> */}
+        <a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;url=http%3A%2F%2Fsharingbuttons.io" rel="noopener" aria-label="Twitter">
+          <span class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--medium"/>
+            <span aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--normal"/>
+            <img width="25" src="https://image.flaticon.com/icons/svg/174/174876.svg" alt="twitter"/>
+        </a>
+
+        {/* <!-- Sharingbutton E-Mail --> */}
+        <a class="resp-sharing-button__link" href="mailto:?subject=Super%20fast%20and%20easy%20Social%20Media%20Sharing%20Buttons.%20No%20JavaScript.%20No%20tracking.&amp;body=http%3A%2F%2Fsharingbuttons.io" target="_self" rel="noopener" aria-label="E-Mail">
+          <span class="resp-sharing-button resp-sharing-button--email resp-sharing-button--medium"/>
+            <span aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--normal"/>
+            <img width="28" src="https://cdn.iconscout.com/icon/free/png-512/apple-mail-493152.png" alt="email"/>
+        </a>
+      </div>     
+
       <hr />
 
       <form onSubmit={onSubmitComment}>
