@@ -1,5 +1,11 @@
 import React, { useState, useContext } from "react";
 import SearchContext from "../contexts/SearchContext";
+import {
+  HeaderButton,
+  HeaderInput,
+  HeaderCleanButton,
+  FilterContainer,
+} from "./../styles";
 
 const Search = () => {
   const searchContext = useContext(SearchContext);
@@ -17,17 +23,20 @@ const Search = () => {
   };
 
   return (
-    <div>
-      <h4>Filtro de Busca</h4>
-      <input
+    <FilterContainer>
+      <HeaderInput
         placeholder="Buscar por..."
         value={name}
         type="text"
         onChange={(event) => setName(event.target.value)}
       />
-      <button onClick={handleApplySearch}>Buscar</button>
-      <button onClick={handleResetSearch}>Limpar</button>
-    </div>
+      <span>
+        <HeaderButton onClick={handleApplySearch}>Buscar</HeaderButton>
+        <HeaderCleanButton onClick={handleResetSearch}>
+          Limpar
+        </HeaderCleanButton>
+      </span>
+    </FilterContainer>
   );
 };
 
